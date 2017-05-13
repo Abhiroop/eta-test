@@ -61,6 +61,14 @@ We will be looking at Pipes. A coroutine library in Eta/Haskell.
 Pre-requisites:
 A basic understanding of Monad Transformer.
 
+
+If you sacrifice Effects you get Haskell&#39;s pure and lazy lists, which you can transform using composable functions in constant space, but without interleaving effects.
+
+If you sacrifice Streaming you get mapM, forM and &quot;ListT done wrong&quot;, which are composable and effectful, but do not return a single result until the whole list has first been processed and loaded into memory.
+
+If you sacrifice Composability you write a tightly coupled read, transform, and write loop in IO, which is streaming and effectful, but is not modular or separable.
+
+
 Pipes give you:
 - Effects
 - Streaming
@@ -158,10 +166,7 @@ cat and <span class="fu">&gt;-&gt;</span> form a <span class="dt">Category</span
 <span class='hs-varop'>&gt;</span>   <span class='hs-varid'>hSetBuffering</span> <span class='hs-varid'>stdout</span> <span class='hs-conid'>LineBuffering</span>
 <span class='hs-varop'>&gt;</span>   <span class='hs-varid'>runEffect</span> <span class='hs-varop'>$</span> <span class='hs-varid'>maxInput</span> <span class='hs-num'>3</span> <span class='hs-varop'>&gt;-&gt;</span> <span class='hs-conid'>P</span><span class='hs-varop'>.</span><span class='hs-varid'>stdoutLn</span>
 <span class='hs-varop'>&gt;</span> <span class='hs-comment'>-- runEffect $ P.stdinLn &gt;-&gt; head 3 &gt;-&gt; P.stdoutLn</span>
-</pre><pre><code>Lets export some of these now:</code></pre><pre><span class='hs-varop'>&gt;</span> <span class='hs-keyword'>data</span> <span class='hs-comment'>{-# CLASS "Main" #-}</span> <span class='hs-conid'>Main</span>
-<span class='hs-varop'>&gt;</span>   <span class='hs-keyglyph'>=</span> <span class='hs-conid'>Main</span> <span class='hs-layout'>(</span><span class='hs-conid'>Object</span><span class='hs-cpp'>#</span> <span class='hs-conid'>Main</span><span class='hs-layout'>)</span>
-<span class='hs-varop'>&gt;</span>   <span class='hs-keyword'>deriving</span> <span class='hs-conid'>Class</span>
-</pre><pre><span class='hs-varop'>&gt;</span> <span class='hs-keyword'>foreign</span> <span class='hs-varid'>export</span> <span class='hs-varid'>java</span> <span class='hs-str'>"@static com.typelead.Util.test"</span> <span class='hs-varid'>main</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>()</span>
+</pre><pre><code>Lets export some of these now:</code></pre><pre><span class='hs-varop'>&gt;</span> <span class='hs-keyword'>foreign</span> <span class='hs-varid'>export</span> <span class='hs-varid'>java</span> <span class='hs-str'>"@static com.typelead.Util.test"</span> <span class='hs-varid'>main</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>IO</span> <span class='hs-conid'>()</span>
 </pre></body></html>
 </body>
 </html>

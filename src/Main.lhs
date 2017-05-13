@@ -16,6 +16,14 @@ We will be looking at Pipes. A coroutine library in Eta/Haskell.
 Pre-requisites:
 A basic understanding of Monad Transformer.
 
+
+If you sacrifice Effects you get Haskell's pure and lazy lists, which you can transform using composable functions in constant space, but without interleaving effects.
+
+If you sacrifice Streaming you get mapM, forM and "ListT done wrong", which are composable and effectful, but do not return a single result until the whole list has first been processed and loaded into memory.
+
+If you sacrifice Composability you write a tightly coupled read, transform, and write loop in IO, which is streaming and effectful, but is not modular or separable.
+
+
 Pipes give you:
 - Effects
 - Streaming
@@ -137,9 +145,5 @@ cat and >-> form a Category
 ```
 Lets export some of these now:
 ```
-
-> data {-# CLASS "Main" #-} Main
->   = Main (Object# Main)
->   deriving Class
 
 > foreign export java "@static com.typelead.Util.test" main :: IO ()
